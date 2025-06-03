@@ -129,4 +129,21 @@ int pai(int n, Arvore raiz){
 	return pai_de_n->valor;
 }
 
+Arvore remover(int n_remover, Arvore raiz){
+	if (raiz != NULL){
+		if (n_remover == raiz->valor){
+			return NULL;
+		}
+	
+		if (n_remover < raiz->valor){
+			raiz->esquerda = remover(n_remover, raiz->esquerda);
+		}
+		else {
+			raiz->direita = remover(n_remover, raiz->direita);
+		}
+	}
+	
+	return raiz;
+}
+
 

@@ -20,4 +20,5 @@ void reverso(Arvore raiz);
 int qtd_folhas(Arvore raiz);
 int sucessor(int n, Arvore raiz);
 int pai(int n, Arvore raiz);
+Arvore remover(int n_remover, Arvore raiz);
 #endif

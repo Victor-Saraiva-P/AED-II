@@ -47,6 +47,10 @@ int main(void) {
 		case 8:
 			scanf("%d", &valor_iterativo);
 			printf("%d\n", pai(valor_iterativo, arvore));
+    
+    case 9:
+    	scanf("%d", &valor_iterativo);
+			arvore = remover(valor_iterativo, arvore);
     }
   } while (funcao != 99);
 }
