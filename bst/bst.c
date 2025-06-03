@@ -81,3 +81,32 @@ int qtd_folhas(Arvore raiz) {
 
   return qtd_folhas(raiz->esquerda) + qtd_folhas(raiz->direita);
 }
+
+int sucessor(int n, Arvore raiz){
+  Arvore temp = raiz;
+  Arvore ancestral = NULL;
+  
+  while (temp != NULL && temp->valor != n){
+    if(n < temp->valor){
+    	printf("INDO PARA ESQUERDA NESSA MERDA (E ACHANDO ANCESTRAL\n");
+      ancestral = temp;
+    	temp = temp->esquerda;
+    	
+   
+			
+    }
+    
+    else if(temp->valor < n){
+    printf("INDO PARA DIREITA NESSA MERDA\n");
+    	temp = temp->direita;
+    }
+  }
+  
+  // printf("o ancestral atual é: %d\n", ancestral->valor);
+  
+  if (temp == NULL) return -1;
+  if (temp->direita != NULL) return temp->direita->valor;
+  if (ancestral != NULL) return ancestral->valor;
+  
+  return -1;
+}

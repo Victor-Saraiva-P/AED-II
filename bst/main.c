@@ -5,7 +5,7 @@ int main(void) {
 
   Arvore arvore = inicializar();
 
-  int valor_inserir;
+  int valor_iterativo;
 
   int funcao;
   do {
@@ -13,8 +13,8 @@ int main(void) {
 
     switch (funcao) {
     case 1:
-      scanf("%d", &valor_inserir);
-      arvore = inserir(valor_inserir, arvore);
+      scanf("%d", &valor_iterativo);
+      arvore = inserir(valor_iterativo, arvore);
       break;
 
     case 2:
@@ -39,6 +39,10 @@ int main(void) {
 
     case 6:
       printf("%d\n", qtd_folhas(arvore));
+      
+    case 7:
+    	scanf("%d", &valor_iterativo);
+	printf("%d\n", sucessor(valor_iterativo, arvore));
     }
   } while (funcao != 99);
 }

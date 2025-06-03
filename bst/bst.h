@@ -18,5 +18,6 @@ void in_order(Arvore raiz);
 void pos_order(Arvore raiz);
 void reverso(Arvore raiz);
 int qtd_folhas(Arvore raiz);
+int sucessor(int n, Arvore raiz);
 
 #endif
