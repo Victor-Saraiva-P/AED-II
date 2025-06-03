@@ -1,18 +1,22 @@
 #ifndef BST_H
 #define BST_H
 
-typedef struct Node {
-  int num;
-  struct Node *esquerda;
-  struct Node *direita;
-} Node;
+typedef int T_elemento;
 
-Node *inicializar(void);
-void inserir(int valorInserir, Node **raiz);
-void pre_order(Node *raiz);
-void in_order(Node *raiz);
-void pos_order(Node *raiz);
-void reverso(Node *raiz);
-int qtd_folhas(Node *raiz);
+typedef struct No {
+  T_elemento valor;
+  struct No *esquerda;
+  struct No *direita;
+} No;
+
+typedef No* Arvore;
+
+Arvore inicializar(void);
+Arvore inserir(int valorInserir, Arvore raiz);
+void pre_order(Arvore raiz);
+void in_order(Arvore raiz);
+void pos_order(Arvore raiz);
+void reverso(Arvore raiz);
+int qtd_folhas(Arvore raiz);
 
 #endif

@@ -2,30 +2,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Node *inicializar(void) { return NULL; }
+Arvore inicializar(void) { return NULL; }
 
-void inserir(int valorInserir, Node **raiz) {
+Arvore inserir(int valorInserir, Arvore raiz) {
 
-  if (*raiz == NULL) {
-    Node *novo = (Node *)malloc(sizeof(Node));
-    novo->num = valorInserir;
+  if (raiz == NULL) {
+    Arvore novo = (Arvore)malloc(sizeof(No));
+    novo->valor = valorInserir;
     novo->esquerda = NULL;
     novo->direita = NULL;
 
-    *raiz = novo;
-
-  } else if (valorInserir < (*raiz)->num) {
-    inserir(valorInserir, &(*raiz)->esquerda);
+    return novo;
+  } else if (valorInserir < raiz->valor) {
+    raiz->esquerda = inserir(valorInserir, raiz->esquerda);
 
   } else {
-    inserir(valorInserir, &(*raiz)->direita);
+    raiz->direita = inserir(valorInserir, raiz->direita);
   }
+  
+  return raiz;
 }
 
-void pre_order(Node *raiz) {
+void pre_order(Arvore raiz) {
   if (raiz != NULL) {
     // printa a raiz
-    printf("[%d]", raiz->num);
+    printf("[%d]", raiz->valor);
 
     // percorre a esquerda
     pre_order(raiz->esquerda);
@@ -35,20 +36,20 @@ void pre_order(Node *raiz) {
   }
 }
 
-void in_order(Node *raiz) {
+void in_order(Arvore raiz) {
   if (raiz != NULL) {
     // percorre a esquerda
     in_order(raiz->esquerda);
 
     // printa a raiz
-    printf("[%d]", raiz->num);
+    printf("[%d]", raiz->valor);
 
     // percorre a direita
     in_order(raiz->direita);
   }
 }
 
-void pos_order(Node *raiz) {
+void pos_order(Arvore raiz) {
   if (raiz != NULL) {
     // percorre a esquerda
     pos_order(raiz->esquerda);
@@ -56,22 +57,22 @@ void pos_order(Node *raiz) {
     // percorre a direita
     pos_order(raiz->direita);
 
-    // printa a raiz
-    printf("[%d]", raiz->num);
+    // printa a raizSS
+    printf("[%d]", raiz->valor);
   }
 }
 
-void reverso(Node *raiz) {
+void reverso(Arvore raiz) {
   if (raiz != NULL) {
-    reverso(raiz->direita);
-
-    printf("[%d]", raiz->num);
-
     reverso(raiz->esquerda);
+
+    printf("[%d]", raiz->valor);
+
+    reverso(raiz->direita);
   }
 }
 
-int qtd_folhas(Node *raiz) {
+int qtd_folhas(Arvore raiz) {
   if (raiz == NULL)
     return 0;
 

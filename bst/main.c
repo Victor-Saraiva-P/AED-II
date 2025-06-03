@@ -3,7 +3,7 @@
 
 int main(void) {
 
-  Node *arvore = inicializar();
+  Arvore arvore = inicializar();
 
   int valor_inserir;
 
@@ -14,7 +14,7 @@ int main(void) {
     switch (funcao) {
     case 1:
       scanf("%d", &valor_inserir);
-      inserir(valor_inserir, &arvore);
+      arvore = inserir(valor_inserir, arvore);
       break;
 
     case 2:
