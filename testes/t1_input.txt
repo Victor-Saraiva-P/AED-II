@@ -1,0 +1,4 @@
+3     # in_order em árvore vazia
+2     # pre_order em árvore vazia
+4     # post_order em árvore vazia
+99
