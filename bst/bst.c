@@ -88,7 +88,6 @@ int sucessor(int n, Arvore raiz){
   
   while (temp != NULL && temp->valor != n){
     if(n < temp->valor){
-    	printf("INDO PARA ESQUERDA NESSA MERDA (E ACHANDO ANCESTRAL\n");
       ancestral = temp;
     	temp = temp->esquerda;
     	
@@ -97,12 +96,9 @@ int sucessor(int n, Arvore raiz){
     }
     
     else if(temp->valor < n){
-    printf("INDO PARA DIREITA NESSA MERDA\n");
     	temp = temp->direita;
     }
   }
-  
-  // printf("o ancestral atual é: %d\n", ancestral->valor);
   
   if (temp == NULL) return -1;
   if (temp->direita != NULL) return temp->direita->valor;
@@ -110,3 +106,27 @@ int sucessor(int n, Arvore raiz){
   
   return -1;
 }
+
+int pai(int n, Arvore raiz){
+	if (raiz == NULL) return -1;
+	Arvore pai_de_n = NULL;
+	Arvore aux = raiz;
+	
+	
+	while (aux != NULL && aux->valor != n){
+		pai_de_n = aux;
+		if(n < aux->valor){
+			aux = aux->esquerda;
+		}
+		else if(aux->valor < n){
+			aux = aux->direita;
+		}
+	}
+	
+	if (aux == NULL) return -1;
+	if (pai_de_n == NULL) return -1;
+	
+	return pai_de_n->valor;
+}
+
+
