@@ -42,7 +42,7 @@ int main(void) {
       
     case 7:
     	scanf("%d", &valor_iterativo);
-	printf("%d\n", sucessor(valor_iterativo, arvore));
+			printf("%d\n", sucessor(valor_iterativo, arvore));
     }
   } while (funcao != 99);
 }
