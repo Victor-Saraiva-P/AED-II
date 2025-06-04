@@ -219,3 +219,17 @@ Arvore multiplicar_por(Arvore raiz, int n){
 	return raiz;
 }
 
+int busca(int chave_procura, Arvore raiz){
+	Arvore temp = raiz;
+	while(temp != NULL){
+		if (temp->valor == chave_procura) return 1;
+		
+		// procura na esquerda
+		if (chave_procura < temp->valor) temp = temp->esquerda;
+		
+		// procura na direita
+		else if (temp->valor < chave_procura) temp = temp->direita;
+	}
+	return 0;
+}
+
