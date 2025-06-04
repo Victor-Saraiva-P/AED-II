@@ -5,9 +5,8 @@ int main(void) {
 
   Arvore arvore = inicializar();
 
-  int valor_iterativo;
+  int funcao, valor_iterativo;
 
-  int funcao;
   do {
     scanf("%d", &funcao);
 
@@ -52,6 +51,11 @@ int main(void) {
 			break;
     
     case 9:
+    	scanf("%d", &valor_iterativo);
+			arvore = remover(valor_iterativo, arvore);
+			break;
+		
+		case 10:
     	scanf("%d", &valor_iterativo);
 			arvore = remover(valor_iterativo, arvore);
 			break;
