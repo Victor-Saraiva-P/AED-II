@@ -87,7 +87,6 @@ int sucessor(int n, Arvore raiz){
   Arvore ancestral = NULL;
   
   while (temp != NULL && temp->valor != n){
-  	printf("percorrendo\n");
     if(n < temp->valor){
       ancestral = temp;
     	temp = temp->esquerda;		
