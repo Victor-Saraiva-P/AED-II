@@ -80,6 +80,10 @@ int main(void) {
 			descendentes(valor_iterativo_1, arvore);
 			printf("\n");
 			break;
+			
+		case 15:
+			printf("%d\n", altura(arvore));
+			break;
     }
   } while (funcao != 99);
 }

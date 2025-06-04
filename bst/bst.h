@@ -26,4 +26,6 @@ Arvore limpar(Arvore raiz);
 Arvore multiplicar_por(Arvore raiz, int n);
 int busca(int chave_procura, Arvore raiz);
 void descendentes(int n, Arvore raiz);
+int altura(Arvore raiz);
+int max(int a, int b);
 #endif

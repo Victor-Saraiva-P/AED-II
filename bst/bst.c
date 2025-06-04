@@ -247,3 +247,18 @@ void descendentes(int n, Arvore raiz){
 		else if (raiz->valor < n) descendentes(n, raiz->direita);
 	}
 }
+
+int altura(Arvore raiz){
+	int valor_altura = 0;
+	if(raiz != NULL)
+	{
+		valor_altura += 1 + max(altura(raiz->esquerda), altura(raiz->direita));
+	}
+	return valor_altura;
+}
+
+int max(int a, int b){
+	if (a > b) return a;
+	if (b > a) return b;
+	return a;
+}
