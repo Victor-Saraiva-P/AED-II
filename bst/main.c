@@ -39,18 +39,22 @@ int main(void) {
 
     case 6:
       printf("%d\n", qtd_folhas(arvore));
+      break;
       
     case 7:
     	scanf("%d", &valor_iterativo);
 			printf("%d\n", sucessor(valor_iterativo, arvore));
+			break;
 			
 		case 8:
 			scanf("%d", &valor_iterativo);
 			printf("%d\n", pai(valor_iterativo, arvore));
+			break;
     
     case 9:
     	scanf("%d", &valor_iterativo);
 			arvore = remover(valor_iterativo, arvore);
+			break;
     }
   } while (funcao != 99);
 }
