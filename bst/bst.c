@@ -205,3 +205,17 @@ Arvore limpar(Arvore raiz){
 	return NULL;
 }
 
+Arvore multiplicar_por(Arvore raiz, int n){
+	if (raiz != NULL){
+		// multiplica esquerda
+		multiplicar_por(raiz->esquerda, n);
+		
+		// multiplica raiz
+		raiz->valor *= n;
+		
+		// multiplica direita
+		multiplicar_por(raiz->direita, n);
+	}
+	return raiz;
+}
+

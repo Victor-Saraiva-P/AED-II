@@ -64,6 +64,11 @@ int main(void) {
 		case 11:
 			arvore = limpar(arvore);
 			break;
+			
+		case 12:
+			scanf("%d", &valor_iterativo_1);
+			arvore = multiplicar_por(arvore, valor_iterativo_1);
+			break;
     }
   } while (funcao != 99);
 }

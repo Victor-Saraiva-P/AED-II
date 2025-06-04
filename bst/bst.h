@@ -23,4 +23,5 @@ int pai(int n, Arvore raiz);
 Arvore remover(int n_remover, Arvore raiz);
 int soma_intervalo(int a, int b, Arvore raiz);
 Arvore limpar(Arvore raiz);
+Arvore multiplicar_por(Arvore raiz, int n);
 #endif
