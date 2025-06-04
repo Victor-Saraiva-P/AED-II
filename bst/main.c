@@ -74,6 +74,12 @@ int main(void) {
 			scanf("%d", &valor_iterativo_1);
 			printf("%d\n", busca(valor_iterativo_1, arvore));
 			break;
+			
+		case 14:
+			scanf("%d", &valor_iterativo_1);
+			descendentes(valor_iterativo_1, arvore);
+			printf("\n");
+			break;
     }
   } while (funcao != 99);
 }

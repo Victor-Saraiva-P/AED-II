@@ -25,4 +25,5 @@ int soma_intervalo(int a, int b, Arvore raiz);
 Arvore limpar(Arvore raiz);
 Arvore multiplicar_por(Arvore raiz, int n);
 int busca(int chave_procura, Arvore raiz);
+void descendentes(int n, Arvore raiz);
 #endif

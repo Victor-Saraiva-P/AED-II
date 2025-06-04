@@ -233,3 +233,17 @@ int busca(int chave_procura, Arvore raiz){
 	return 0;
 }
 
+void descendentes(int n, Arvore raiz){
+	if(raiz != NULL){
+		if (raiz->valor == n){
+			in_order(raiz->esquerda);
+			in_order(raiz->direita);
+		}
+		
+		// percorrendo esquerda
+		else if (n < raiz->valor) descendentes(n, raiz->esquerda);
+		
+		// percorrendo direita
+		else if (raiz->valor < n) descendentes(n, raiz->direita);
+	}
+}
