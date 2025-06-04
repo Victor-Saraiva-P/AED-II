@@ -170,4 +170,23 @@ Arvore remover(int n_remover, Arvore raiz){
 	return raiz;
 }
 
+int soma_intervalo(int a, int b, Arvore raiz){
+	int soma= 0;
+	if (raiz != NULL)
+	{
+		// verifica esquerda
+		soma += soma_intervalo(a, b, raiz->esquerda);
+		
+		// verifica a raiz
+		if (a <= raiz->valor && raiz->valor <= b)
+		{
+		 	soma += raiz->valor;
+		}
+		
+		// verifica direita
+		soma += soma_intervalo(a, b, raiz->direita);
+	}
+	return soma;
+}
+
 

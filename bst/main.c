@@ -5,15 +5,15 @@ int main(void) {
 
   Arvore arvore = inicializar();
 
-  int funcao, valor_iterativo;
+  int funcao, valor_iterativo_1, valor_iterativo_2;
 
   do {
     scanf("%d", &funcao);
 
     switch (funcao) {
     case 1:
-      scanf("%d", &valor_iterativo);
-      arvore = inserir(valor_iterativo, arvore);
+      scanf("%d", &valor_iterativo_1);
+      arvore = inserir(valor_iterativo_1, arvore);
       break;
 
     case 2:
@@ -41,23 +41,24 @@ int main(void) {
       break;
       
     case 7:
-    	scanf("%d", &valor_iterativo);
-			printf("%d\n", sucessor(valor_iterativo, arvore));
+    	scanf("%d", &valor_iterativo_1);
+			printf("%d\n", sucessor(valor_iterativo_1, arvore));
 			break;
 			
 		case 8:
-			scanf("%d", &valor_iterativo);
-			printf("%d\n", pai(valor_iterativo, arvore));
+			scanf("%d", &valor_iterativo_1);
+			printf("%d\n", pai(valor_iterativo_1, arvore));
 			break;
     
     case 9:
-    	scanf("%d", &valor_iterativo);
-			arvore = remover(valor_iterativo, arvore);
+    	scanf("%d", &valor_iterativo_1);
+			arvore = remover(valor_iterativo_1, arvore);
 			break;
 		
 		case 10:
-    	scanf("%d", &valor_iterativo);
-			arvore = remover(valor_iterativo, arvore);
+    	scanf("%d", &valor_iterativo_1);
+    	scanf("%d", &valor_iterativo_2);
+			printf("%d\n", soma_intervalo(valor_iterativo_1, valor_iterativo_2, arvore));
 			break;
     }
   } while (funcao != 99);
