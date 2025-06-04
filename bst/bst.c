@@ -129,7 +129,34 @@ int pai(int n, Arvore raiz){
 Arvore remover(int n_remover, Arvore raiz){
 	if (raiz != NULL){
 		if (n_remover == raiz->valor){
-			return NULL;
+			// caso 1) 0 filhos
+			if (raiz->esquerda == NULL && raiz->direita == NULL)
+			{
+				free(raiz);
+				return NULL;
+			}	
+			
+			// caso 2a) filho a esquerda
+			if (raiz->direita == NULL){
+				Arvore no_esquerdo = raiz->esquerda;
+				free(raiz);
+				return no_esquerdo;
+			}
+			
+			// caso 2a) filho a direita
+			if (raiz->esquerda == NULL){
+				Arvore no_direito = raiz->direita;
+				free(raiz);
+				return no_direito;
+			}
+			
+			// caso 3) filhos nos dois lados
+			Arvore maior_esquerda = raiz->esquerda;
+			while (maior_esquerda->direita != NULL){
+				maior_esquerda = maior_esquerda->direita;
+			}
+			raiz->valor = maior_esquerda->valor;
+			raiz->esquerda = remover(maior_esquerda->valor, raiz->esquerda);
 		}
 	
 		if (n_remover < raiz->valor){
