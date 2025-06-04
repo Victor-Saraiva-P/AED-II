@@ -189,4 +189,19 @@ int soma_intervalo(int a, int b, Arvore raiz){
 	return soma;
 }
 
+Arvore limpar(Arvore raiz){
+	if (raiz != NULL)
+	{
+		// limpa esquerda
+		limpar(raiz->esquerda);
+		
+		// limpa direita
+		limpar(raiz->direita);
+		
+		// limpa raiz
+		free(raiz);
+	}
+	
+	return NULL;
+}
 

@@ -60,6 +60,10 @@ int main(void) {
     	scanf("%d", &valor_iterativo_2);
 			printf("%d\n", soma_intervalo(valor_iterativo_1, valor_iterativo_2, arvore));
 			break;
+			
+		case 11:
+			arvore = limpar(arvore);
+			break;
     }
   } while (funcao != 99);
 }
