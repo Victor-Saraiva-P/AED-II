@@ -150,7 +150,7 @@ Arvore remover(int n_remover, Arvore raiz){
 				return no_esquerdo;
 			}
 			
-			// caso 2a) filho a direita
+			// caso 2b) filho a direita
 			if (raiz->esquerda == NULL){
 				Arvore no_direito = raiz->direita;
 				free(raiz);
@@ -166,7 +166,7 @@ Arvore remover(int n_remover, Arvore raiz){
 			raiz->esquerda = remover(maior_esquerda->valor, raiz->esquerda);
 		}
 	
-		if (n_remover < raiz->valor){
+		else if (n_remover < raiz->valor){
 			raiz->esquerda = remover(n_remover, raiz->esquerda);
 		}
 		else {
