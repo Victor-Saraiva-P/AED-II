@@ -64,11 +64,11 @@ void pos_order(Arvore raiz) {
 
 void reverso(Arvore raiz) {
   if (raiz != NULL) {
-    reverso(raiz->esquerda);
+    reverso(raiz->direita);
 
     printf("[%d]", raiz->valor);
 
-    reverso(raiz->direita);
+    reverso(raiz->esquerda);
   }
 }
 
