@@ -98,7 +98,14 @@ int sucessor(int n, Arvore raiz){
   }
   
   if (temp == NULL) return -1;
-  if (temp->direita != NULL) return temp->direita->valor;
+  if (temp->direita != NULL){
+  	Arvore menor_direita = temp->direita;
+  	
+  	while(menor_direita->esquerda != NULL){
+  		menor_direita = menor_direita->esquerda;
+  	}
+  	return menor_direita->valor;
+  }
   if (ancestral != NULL) return ancestral->valor;
   
   return -1;
