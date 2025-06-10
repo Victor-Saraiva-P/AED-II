@@ -20,6 +20,9 @@ int main(int argc, char *argv[]){
                 pre_order(a1);
                 printf("\n");
                 break;
+            case 3:
+            	a1 = limpar(a1);
+            	break;
 
             case 99:
                 exit(0); 

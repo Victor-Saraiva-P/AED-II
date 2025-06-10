@@ -38,6 +38,7 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu){
                             *cresceu = 1;
                             break;
                         case 1:
+                        	raiz->fb = 2;
                             *cresceu = 0;
                             return rotacao(raiz);
                    }    
@@ -48,6 +49,7 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu){
               if(*cresceu) {
                     switch(raiz->fb) {
                         case -1:
+                        	raiz->fb = -2;
                             *cresceu = 0;
                             return rotacao(raiz);
                         case 0:
@@ -66,19 +68,36 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu){
 }
 
 arvore rotacao(arvore pivo) {
-    if(pivo->fb > 0) {
-        //rotação esquerda
+    // rotação esquerda
+    if(pivo->fb == 2) {
         arvore u = pivo->dir;
-        if(u->fb >= 0) {
-            //rotação simples esquerda
-            return rotacao_simples_esquerda(pivo);
-        } else {
-            //return rotacao_dupla_esquerda(pivo);
+        
+        if(u == NULL){
         }
-    } else {
-        //rotação direita
-
+        
+        // rotação simples esquerda
+        if(u->fb >= 0) {
+            return rotacao_simples_esquerda(pivo);
+        }
+        // rotação dupla esquerda
+        else{
+        	//return rotacao_dupla_esquerda(pivo);
+        }
     }
+    //rotação direita
+    else {
+    	arvore u = pivo->esq;
+    	
+    	// rotação simples direita
+    	if(u->fb <= 0){
+    		return rotacao_simples_direita(pivo);
+    	}
+    	// rotação dupla direita
+    	else{
+    		// return rotacao_dupla_direita(pivo);
+    	}
+    }
+    return pivo;
 }
 
 /*
@@ -98,11 +117,9 @@ Após
 */
 arvore rotacao_simples_esquerda(arvore pivo) {
     //Declarar e inicializar os ponteiros
-    arvore u, t1, t2, t3;
+    arvore u, t2;
     u = pivo->dir;
-    t1 = pivo->esq;
     t2 = u->esq;
-    t3 = u->dir;
 
     //Atualizar ponteiros
     u->esq = pivo;
@@ -113,11 +130,32 @@ arvore rotacao_simples_esquerda(arvore pivo) {
         pivo->fb = 0;
         u->fb = 0;
     } else {
-
-        pivo->fb = 1; //Tá errado, verificar os cálculos
-        u->fb = -1;   //Tá errado, verificar os cálculos
+        pivo->fb = 1;
+        u->fb = -1;
     }
     return u;
+}
+
+arvore rotacao_simples_direita(arvore pivo){
+	//Declarar e inicializar os ponteiros
+	arvore u, t2;
+	u = pivo->esq;
+	t2 = u->dir;
+			
+	//Atualizar ponteiros
+	u->dir = pivo;
+	pivo->esq = t2;
+	
+	//Atualizar o fator de balanço
+    if(u->fb == -1) {
+        pivo->fb = 0;
+        u->fb = 0;
+    } else {
+        pivo->fb = -1;
+        u->fb = -1;
+    }
+	
+	return u;
 }
 
 void pre_order(arvore raiz){
@@ -183,6 +221,7 @@ arvore remover(arvore raiz, T_ELEM valor){
             return raiz; 
         }
    }
+   return raiz;
 }
 
 int maiorElemento(arvore raiz) {
@@ -195,5 +234,22 @@ int maiorElemento(arvore raiz) {
     else
         return -1;
 }
+
+arvore limpar(arvore raiz){
+	if (raiz != NULL)
+	{
+		// limpa esquerda
+		limpar(raiz->esq);
+		
+		// limpa direita
+		limpar(raiz->dir);
+		
+		// limpa raiz
+		free(raiz);
+	}
+	
+	return NULL;
+}
+
 
 

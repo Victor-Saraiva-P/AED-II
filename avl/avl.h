@@ -22,5 +22,7 @@ int maximo(int a, int b);
 int altura(arvore raiz);
 arvore rotacao(arvore pivo);
 arvore rotacao_simples_esquerda(arvore pivo);
+arvore rotacao_simples_direita(arvore pivo);
+arvore limpar(arvore raiz);
 
 #endif
