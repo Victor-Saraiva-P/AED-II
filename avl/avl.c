@@ -72,16 +72,13 @@ arvore rotacao(arvore pivo) {
     if(pivo->fb == 2) {
         arvore u = pivo->dir;
         
-        if(u == NULL){
-        }
-        
         // rotação simples esquerda
         if(u->fb >= 0) {
             return rotacao_simples_esquerda(pivo);
         }
         // rotação dupla esquerda
         else{
-        	//return rotacao_dupla_esquerda(pivo);
+        	return rotacao_dupla_esquerda(pivo);
         }
     }
     //rotação direita
@@ -100,21 +97,6 @@ arvore rotacao(arvore pivo) {
     return pivo;
 }
 
-/*
-Antes
-       p(+2)
-      /    \
-     t1     u(0, +1)
-           /  \
-          t2  t3
-Após
-       | (return)
-       u
-     /   \-
-    p    t3
-  -/ \
-  t1  t2
-*/
 arvore rotacao_simples_esquerda(arvore pivo) {
     //Declarar e inicializar os ponteiros
     arvore u, t2;
@@ -152,7 +134,7 @@ arvore rotacao_simples_direita(arvore pivo){
         u->fb = 0;
     } else {
         pivo->fb = -1;
-        u->fb = -1;
+        u->fb = 1;
     }
 	
 	return u;
@@ -179,6 +161,43 @@ arvore rotacao_dupla_direita(arvore pivo){
 	}
 	else if(v->fb == -1){
 		pivo->fb = 1;
+		u->fb = 0;
+	}
+	else{
+		pivo->fb = 0;
+		u->fb = 0;
+	}
+	
+	v->fb = 0;
+	
+	return v;
+}
+
+arvore rotacao_dupla_esquerda(arvore pivo){
+	//Declarar e inicializar os ponteiros
+	arvore u, v, t2, t3;
+	u = pivo->dir;
+	v = u->esq;
+	t2 = v->esq;
+	t3 = v->dir;
+	
+	//Atualizar ponteiros
+	v->dir = u;
+	v->esq = pivo;
+	pivo->dir = t2;
+	u->esq = t3;
+	
+	//Atualizar o fator de balanço
+	if(v->fb == 1){
+		pivo->fb = -1;
+		u->fb = 0;
+	}
+	else if(v->fb == -1){
+		pivo->fb = 0;
+		u->fb = 1;
+	}
+	else{
+		pivo->fb = 0;
 		u->fb = 0;
 	}
 	
