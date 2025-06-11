@@ -282,22 +282,3 @@ int maiorElemento(arvore raiz) {
     else
         return -1;
 }
-
-arvore limpar(arvore raiz){
-	if (raiz != NULL)
-	{
-		// limpa esquerda
-		limpar(raiz->esq);
-		
-		// limpa direita
-		limpar(raiz->dir);
-		
-		// limpa raiz
-		free(raiz);
-	}
-	
-	return NULL;
-}
-
-
-
