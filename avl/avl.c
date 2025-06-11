@@ -94,7 +94,7 @@ arvore rotacao(arvore pivo) {
     	}
     	// rotação dupla direita
     	else{
-    		// return rotacao_dupla_direita(pivo);
+    		return rotacao_dupla_direita(pivo);
     	}
     }
     return pivo;
@@ -156,6 +156,35 @@ arvore rotacao_simples_direita(arvore pivo){
     }
 	
 	return u;
+}
+
+arvore rotacao_dupla_direita(arvore pivo){
+	//Declarar e inicializar os ponteiros
+	arvore u, v, t2, t3;
+	u = pivo->esq;
+	v = u->dir;
+	t2 = v->esq;
+	t3 = v->dir;
+	
+	//Atualizar ponteiros
+	v->dir = pivo;
+	v->esq = u;
+	u->dir = t2;
+	pivo->esq = t3;
+	
+	//Atualizar o fator de balanço
+	if(v->fb == 1){
+		pivo->fb = 0;
+		u->fb = -1;
+	}
+	else if(v->fb == -1){
+		pivo->fb = 1;
+		u->fb = 0;
+	}
+	
+	v->fb = 0;
+	
+	return v;
 }
 
 void pre_order(arvore raiz){

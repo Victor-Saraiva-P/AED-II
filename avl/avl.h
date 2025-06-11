@@ -24,5 +24,6 @@ arvore rotacao(arvore pivo);
 arvore rotacao_simples_esquerda(arvore pivo);
 arvore rotacao_simples_direita(arvore pivo);
 arvore limpar(arvore raiz);
+arvore rotacao_dupla_direita(arvore pivo);
 
 #endif
