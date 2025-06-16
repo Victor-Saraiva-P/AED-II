@@ -1,232 +1,275 @@
-//implementação das funções
+// implementação das funções
 
 #include "avl.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-//Implementação recursiva
-arvore inserir(arvore raiz, T_ELEM valor, int *cresceu){
-    //Caso base: instância mais simples do problema
-    //Inserir em uma árvore vazia
-    if(raiz == NULL) {
-        //Alocar memória
-        arvore novo_no = (arvore) malloc(sizeof(no));
-        //Inicializar variáveis membro
+// Implementação recursiva
+arvore inserir(arvore raiz, T_ELEM valor, int *cresceu)
+{
+    // Caso base: instância mais simples do problema
+    // Inserir em uma árvore vazia
+    if (raiz == NULL)
+    {
+        // Alocar memória
+        arvore novo_no = (arvore)malloc(sizeof(no));
+        // Inicializar variáveis membro
         novo_no->valor = valor;
         novo_no->esq = NULL;
         novo_no->dir = NULL;
         novo_no->fb = 0;
-        //retornar a (sub)árvore atualizada
-        //Cresceu Retornar para chamada anterior
+        // retornar a (sub)árvore atualizada
+        // Cresceu Retornar para chamada anterior
         *cresceu = 1;
         return novo_no;
-    } else {
-        //Caso recursivo -> Um passo em direção ao caso base
-        //Decidir se vamos para sub-arvore esquerda ou direita
-        if(valor > raiz->valor) {
-              //chamada recursiva
-              raiz->dir = inserir(raiz->dir, valor, cresceu);   
-              //Atualizar FB
-              if(*cresceu) {
-                    switch(raiz->fb) {
-                        case -1:
-                            raiz->fb = 0;
-                            *cresceu = 0;
-                            break;
-                        case 0:
-                            raiz->fb = 1;
-                            *cresceu = 1;
-                            break;
-                        case 1:
-                        	raiz->fb = 2;
-                            *cresceu = 0;
-                            return rotacao(raiz);
-                   }    
-              }
-        } else {
-              raiz->esq = inserir(raiz->esq, valor, cresceu);
-              //Atualizar FB
-              if(*cresceu) {
-                    switch(raiz->fb) {
-                        case -1:
-                        	raiz->fb = -2;
-                            *cresceu = 0;
-                            return rotacao(raiz);
-                        case 0:
-                            raiz->fb = -1;
-                            *cresceu = 1;
-                            break;
-                        case 1:
-                            raiz->fb = 0;
-                            *cresceu = 0;
-                            break;
-                    }    
-              }
+    }
+    else
+    {
+        // Caso recursivo -> Um passo em direção ao caso base
+        // Decidir se vamos para sub-arvore esquerda ou direita
+        if (valor > raiz->valor)
+        {
+            // chamada recursiva
+            raiz->dir = inserir(raiz->dir, valor, cresceu);
+            // Atualizar FB
+            if (*cresceu)
+            {
+                switch (raiz->fb)
+                {
+                case -1:
+                    raiz->fb = 0;
+                    *cresceu = 0;
+                    break;
+                case 0:
+                    raiz->fb = 1;
+                    *cresceu = 1;
+                    break;
+                case 1:
+                    raiz->fb = 2;
+                    *cresceu = 0;
+                    return rotacao(raiz);
+                }
+            }
+        }
+        else
+        {
+            raiz->esq = inserir(raiz->esq, valor, cresceu);
+            // Atualizar FB
+            if (*cresceu)
+            {
+                switch (raiz->fb)
+                {
+                case -1:
+                    raiz->fb = -2;
+                    *cresceu = 0;
+                    return rotacao(raiz);
+                case 0:
+                    raiz->fb = -1;
+                    *cresceu = 1;
+                    break;
+                case 1:
+                    raiz->fb = 0;
+                    *cresceu = 0;
+                    break;
+                }
+            }
         }
         return raiz;
     }
 }
 
-arvore rotacao(arvore pivo) {
+arvore rotacao(arvore pivo)
+{
     // rotação esquerda
-    if(pivo->fb == 2) {
+    if (pivo->fb == 2)
+    {
         arvore u = pivo->dir;
-        
+
         // rotação simples esquerda
-        if(u->fb >= 0) {
+        if (u->fb >= 0)
+        {
             return rotacao_simples_esquerda(pivo);
         }
         // rotação dupla esquerda
-        else{
-        	return rotacao_dupla_esquerda(pivo);
+        else
+        {
+            return rotacao_dupla_esquerda(pivo);
         }
     }
-    //rotação direita
-    else {
-    	arvore u = pivo->esq;
-    	
-    	// rotação simples direita
-    	if(u->fb <= 0){
-    		return rotacao_simples_direita(pivo);
-    	}
-    	// rotação dupla direita
-    	else{
-    		return rotacao_dupla_direita(pivo);
-    	}
+    // rotação direita
+    else
+    {
+        arvore u = pivo->esq;
+
+        // rotação simples direita
+        if (u->fb <= 0)
+        {
+            return rotacao_simples_direita(pivo);
+        }
+        // rotação dupla direita
+        else
+        {
+            return rotacao_dupla_direita(pivo);
+        }
     }
     return pivo;
 }
 
-arvore rotacao_simples_esquerda(arvore pivo) {
-    //Declarar e inicializar os ponteiros
+arvore rotacao_simples_esquerda(arvore pivo)
+{
+    // Declarar e inicializar os ponteiros
     arvore u, t2;
     u = pivo->dir;
     t2 = u->esq;
 
-    //Atualizar ponteiros
+    // Atualizar ponteiros
     u->esq = pivo;
     pivo->dir = t2;
 
-    //Atualizar o fator de balanço
-    if(u->fb == 1) {
+    // Atualizar o fator de balanço
+    if (u->fb == 1)
+    {
         pivo->fb = 0;
         u->fb = 0;
-    } else {
+    }
+    else
+    {
         pivo->fb = 1;
         u->fb = -1;
     }
     return u;
 }
 
-arvore rotacao_simples_direita(arvore pivo){
-	//Declarar e inicializar os ponteiros
-	arvore u, t2;
-	u = pivo->esq;
-	t2 = u->dir;
-			
-	//Atualizar ponteiros
-	u->dir = pivo;
-	pivo->esq = t2;
-	
-	//Atualizar o fator de balanço
-    if(u->fb == -1) {
+arvore rotacao_simples_direita(arvore pivo)
+{
+    // Declarar e inicializar os ponteiros
+    arvore u, t2;
+    u = pivo->esq;
+    t2 = u->dir;
+
+    // Atualizar ponteiros
+    u->dir = pivo;
+    pivo->esq = t2;
+
+    // Atualizar o fator de balanço
+    if (u->fb == -1)
+    {
         pivo->fb = 0;
         u->fb = 0;
-    } else {
+    }
+    else
+    {
         pivo->fb = -1;
         u->fb = 1;
     }
-	
-	return u;
+
+    return u;
 }
 
-arvore rotacao_dupla_direita(arvore pivo){
-	//Declarar e inicializar os ponteiros
-	arvore u, v, t2, t3;
-	u = pivo->esq;
-	v = u->dir;
-	t2 = v->esq;
-	t3 = v->dir;
-	
-	//Atualizar ponteiros
-	v->dir = pivo;
-	v->esq = u;
-	u->dir = t2;
-	pivo->esq = t3;
-	
-	//Atualizar o fator de balanço
-	if(v->fb == 1){
-		pivo->fb = 0;
-		u->fb = -1;
-	}
-	else if(v->fb == -1){
-		pivo->fb = 1;
-		u->fb = 0;
-	}
-	else{
-		pivo->fb = 0;
-		u->fb = 0;
-	}
-	
-	v->fb = 0;
-	
-	return v;
+arvore rotacao_dupla_direita(arvore pivo)
+{
+    // Declarar e inicializar os ponteiros
+    arvore u, v, t2, t3;
+    u = pivo->esq;
+    v = u->dir;
+    t2 = v->esq;
+    t3 = v->dir;
+
+    // Atualizar ponteiros
+    v->dir = pivo;
+    v->esq = u;
+    u->dir = t2;
+    pivo->esq = t3;
+
+    // Atualizar o fator de balanço
+    if (v->fb == 1)
+    {
+        pivo->fb = 0;
+        u->fb = -1;
+    }
+    else if (v->fb == -1)
+    {
+        pivo->fb = 1;
+        u->fb = 0;
+    }
+    else
+    {
+        pivo->fb = 0;
+        u->fb = 0;
+    }
+
+    v->fb = 0;
+
+    return v;
 }
 
-arvore rotacao_dupla_esquerda(arvore pivo){
-	//Declarar e inicializar os ponteiros
-	arvore u, v, t2, t3;
-	u = pivo->dir;
-	v = u->esq;
-	t2 = v->esq;
-	t3 = v->dir;
-	
-	//Atualizar ponteiros
-	v->dir = u;
-	v->esq = pivo;
-	pivo->dir = t2;
-	u->esq = t3;
-	
-	//Atualizar o fator de balanço
-	if(v->fb == 1){
-		pivo->fb = -1;
-		u->fb = 0;
-	}
-	else if(v->fb == -1){
-		pivo->fb = 0;
-		u->fb = 1;
-	}
-	else{
-		pivo->fb = 0;
-		u->fb = 0;
-	}
-	
-	v->fb = 0;
-	
-	return v;
+arvore rotacao_dupla_esquerda(arvore pivo)
+{
+    // Declarar e inicializar os ponteiros
+    arvore u, v, t2, t3;
+    u = pivo->dir;
+    v = u->esq;
+    t2 = v->esq;
+    t3 = v->dir;
+
+    // Atualizar ponteiros
+    v->dir = u;
+    v->esq = pivo;
+    pivo->dir = t2;
+    u->esq = t3;
+
+    // Atualizar o fator de balanço
+    if (v->fb == 1)
+    {
+        pivo->fb = -1;
+        u->fb = 0;
+    }
+    else if (v->fb == -1)
+    {
+        pivo->fb = 0;
+        u->fb = 1;
+    }
+    else
+    {
+        pivo->fb = 0;
+        u->fb = 0;
+    }
+
+    v->fb = 0;
+
+    return v;
 }
 
-void pre_order(arvore raiz){
-    if(raiz == NULL) {
-        //caso base, "imprimir" uma árvore vazia = não fazer nada
-    } else {
+void pre_order(arvore raiz)
+{
+    if (raiz == NULL)
+    {
+        // caso base, "imprimir" uma árvore vazia = não fazer nada
+    }
+    else
+    {
         printf("[%d | %d]", raiz->valor, raiz->fb);
         pre_order(raiz->esq);
         pre_order(raiz->dir);
     }
 }
 
-//retorna o maior valor entre os dois inteiros passados como parâmetro
-int maximo(int a, int b){
-    return (a > b)? a: b;
+// retorna o maior valor entre os dois inteiros passados como parâmetro
+int maximo(int a, int b)
+{
+    return (a > b) ? a : b;
 }
 
-//Calcular recursivamente a altura da árvore (retorno)
-int altura(arvore raiz){
-    //caso base
-    if(raiz == NULL) {
+// Calcular recursivamente a altura da árvore (retorno)
+int altura(arvore raiz)
+{
+    // caso base
+    if (raiz == NULL)
+    {
         return 0;
-    } else {
+    }
+    else
+    {
         return 1 + maximo(altura(raiz->esq), altura(raiz->dir));
     }
 }
@@ -247,12 +290,12 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
                 free(raiz);
                 *diminuiu = 1;
                 return NULL;
-            } 
+            }
             // caso 2a - Exatamente um filho esquerdo
             if (raiz->esq != NULL && raiz->dir == NULL)
             {
                 arvore filhoEsq = raiz->esq;
-                free(raiz); 
+                free(raiz);
                 *diminuiu = 1;
                 return filhoEsq;
             }
@@ -260,9 +303,9 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
             if (raiz->esq == NULL && raiz->dir != NULL)
             {
                 arvore filhoDir = raiz->dir;
-                free(raiz); 
+                free(raiz);
                 *diminuiu = 1;
-                return filhoDir;     
+                return filhoDir;
             }
             // caso 3 - Possui 2 filhos não nulos
             if (raiz->esq != NULL && raiz->dir != NULL)
@@ -298,20 +341,22 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
                 else
                 {
                     raiz->esq = remover(raiz->esq, valor, diminuiu);
+                }
+                return raiz;
             }
-            return raiz; 
         }
-   }
-   return raiz;
+        return raiz;
     }
 }
 
-int maiorElemento(arvore raiz) {
+int maiorElemento(arvore raiz)
+{
     arvore temp = raiz;
-    while(temp->dir != NULL) {
+    while (temp->dir != NULL)
+    {
         temp = temp->dir;
     }
-    if(temp!=NULL)
+    if (temp != NULL)
         return temp->valor;
     else
         return -1;
