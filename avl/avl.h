@@ -13,7 +13,7 @@ typedef struct no {
 typedef struct no* arvore;
 
 arvore inserir(arvore raiz, T_ELEM valor, int *cresceu);
-arvore remover(arvore raiz, T_ELEM valor);
+arvore remover(arvore raiz, T_ELEM valor, int *diminuiu);
 int maiorElemento(arvore raiz);
 
 
