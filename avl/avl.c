@@ -231,45 +231,79 @@ int altura(arvore raiz){
     }
 }
 
-arvore remover(arvore raiz, T_ELEM valor){
-    if(raiz == NULL) {
+arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
+{
+    if (raiz == NULL)
+    {
         return NULL;
-    } else {
-        if(raiz->valor == valor) {
-            //caso 1 - Zero Filhos
-            if(raiz->esq == NULL && raiz->dir == NULL) {
+    }
+    else
+    {
+        if (raiz->valor == valor)
+        {
+            // caso 1 - Zero Filhos
+            if (raiz->esq == NULL && raiz->dir == NULL)
+            {
                 free(raiz);
+                *diminuiu = 1;
                 return NULL;
             } 
-            //caso 2a - Exatamente um filho esquerdo
-            if(raiz->esq != NULL && raiz->dir == NULL) {
+            // caso 2a - Exatamente um filho esquerdo
+            if (raiz->esq != NULL && raiz->dir == NULL)
+            {
                 arvore filhoEsq = raiz->esq;
                 free(raiz); 
+                *diminuiu = 1;
                 return filhoEsq;
-                
             }
-            //caso 2b - Exatamente um filho direito
-            if(raiz->esq == NULL && raiz->dir != NULL) {
+            // caso 2b - Exatamente um filho direito
+            if (raiz->esq == NULL && raiz->dir != NULL)
+            {
                 arvore filhoDir = raiz->dir;
                 free(raiz); 
+                *diminuiu = 1;
                 return filhoDir;     
             }
-            //caso 3 - Possui 2 filhos não nulos
-            if(raiz->esq != NULL && raiz->dir != NULL) {
+            // caso 3 - Possui 2 filhos não nulos
+            if (raiz->esq != NULL && raiz->dir != NULL)
+            {
                 raiz->valor = maiorElemento(raiz->esq);
-                raiz->esq = remover(raiz->esq, raiz->valor);
+                raiz->esq = remover(raiz->esq, raiz->valor, diminuiu);
                 return raiz;
             }
-        } else {
-            if(valor > raiz->valor) {
-                raiz->dir = remover(raiz->dir, valor);
-            } else {
-                raiz->esq = remover(raiz->esq, valor);
+        }
+        else
+        {
+            if (valor > raiz->valor)
+            {
+                raiz->dir = remover(raiz->dir, valor, diminuiu);
+                // ajuste do FB e chamada da rotação
+                if (*diminuiu)
+                {
+                    switch (raiz->fb)
+                    {
+                    case -1:
+                        return rotacao(raiz);
+                        break;
+                    case 0:
+                        raiz->fb = -1;
+                        *diminuiu = 0;
+                        break;
+                    case +1:
+                        raiz->fb = 0;
+                        *diminuiu = 1;
+                        break;
+                    }
+                }
+                else
+                {
+                    raiz->esq = remover(raiz->esq, valor, diminuiu);
             }
             return raiz; 
         }
    }
    return raiz;
+    }
 }
 
 int maiorElemento(arvore raiz) {
