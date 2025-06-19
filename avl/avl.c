@@ -326,6 +326,7 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
                     switch (raiz->fb)
                     {
                     case -1:
+                    	raiz->fb = -2;
                         return rotacao(raiz);
                         break;
                     case 0:
@@ -338,12 +339,31 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
                         break;
                     }
                 }
-                else
-                {
-                    raiz->esq = remover(raiz->esq, valor, diminuiu);
-                }
-                return raiz;
-            }
+           }
+           else
+           {
+               raiz->esq = remover(raiz->esq, valor, diminuiu);
+               // TODO: implementar o ajute de fb para esquerda
+               if (*diminuiu)
+               {
+                    switch (raiz->fb)
+                    {
+                    case -1:
+                        raiz->fb = 0;
+                        *diminuiu = 1;
+                        break;
+                    case 0:
+                        raiz->fb = +1;
+                        *diminuiu = 0;
+                        break;
+                    case +1:
+                        raiz->fb = +2;
+                        return rotacao(raiz);
+                        break;
+                    }
+               }
+           }
+           return raiz;
         }
         return raiz;
     }
