@@ -47,7 +47,7 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu)
                 case 1:
                     raiz->fb = 2;
                     *cresceu = 0;
-                    return rotacao(raiz);
+                    return rotacao(raiz, NULL);
                 }
             }
         }
@@ -62,7 +62,7 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu)
                 case -1:
                     raiz->fb = -2;
                     *cresceu = 0;
-                    return rotacao(raiz);
+                    return rotacao(raiz, NULL);
                 case 0:
                     raiz->fb = -1;
                     *cresceu = 1;
@@ -78,7 +78,7 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu)
     }
 }
 
-arvore rotacao(arvore pivo)
+arvore rotacao(arvore pivo, int *diminuiu)
 {
     // rotação esquerda
     if (pivo->fb == 2)
@@ -88,6 +88,13 @@ arvore rotacao(arvore pivo)
         // rotação simples esquerda
         if (u->fb >= 0)
         {
+            if (diminuiu != NULL)
+            {
+                // só cai se u->fb==0
+                if (u->fb == 0)
+                    *diminuiu = 0;
+            }
+
             return rotacao_simples_esquerda(pivo);
         }
         // rotação dupla esquerda
@@ -104,6 +111,13 @@ arvore rotacao(arvore pivo)
         // rotação simples direita
         if (u->fb <= 0)
         {
+            if (diminuiu != NULL)
+            {
+                // só cai se u->fb==0
+                if (u->fb == 0)
+                    *diminuiu = 0;
+            }
+
             return rotacao_simples_direita(pivo);
         }
         // rotação dupla direita
@@ -260,20 +274,6 @@ int maximo(int a, int b)
     return (a > b) ? a : b;
 }
 
-// Calcular recursivamente a altura da árvore (retorno)
-int altura(arvore raiz)
-{
-    // caso base
-    if (raiz == NULL)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1 + maximo(altura(raiz->esq), altura(raiz->dir));
-    }
-}
-
 arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
 {
     if (raiz == NULL)
@@ -312,40 +312,9 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
             {
                 raiz->valor = maiorElemento(raiz->esq);
                 raiz->esq = remover(raiz->esq, raiz->valor, diminuiu);
-                return raiz;
-            }
-        }
-        else
-        {
-            if (valor > raiz->valor)
-            {
-                raiz->dir = remover(raiz->dir, valor, diminuiu);
                 // ajuste do FB e chamada da rotação
                 if (*diminuiu)
                 {
-                    switch (raiz->fb)
-                    {
-                    case -1:
-                    	raiz->fb = -2;
-                        return rotacao(raiz);
-                        break;
-                    case 0:
-                        raiz->fb = -1;
-                        *diminuiu = 0;
-                        break;
-                    case +1:
-                        raiz->fb = 0;
-                        *diminuiu = 1;
-                        break;
-                    }
-                }
-           }
-           else
-           {
-               raiz->esq = remover(raiz->esq, valor, diminuiu);
-               // ajuste do FB e chamada da rotação
-               if (*diminuiu)
-               {
                     switch (raiz->fb)
                     {
                     case -1:
@@ -358,12 +327,63 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
                         break;
                     case +1:
                         raiz->fb = +2;
-                        return rotacao(raiz);
+                        return rotacao(raiz, diminuiu);
                         break;
                     }
-               }
-           }
-           return raiz;
+                }
+            }
+            return raiz;
+        }
+
+        else
+        {
+            if (valor > raiz->valor)
+            {
+                raiz->dir = remover(raiz->dir, valor, diminuiu);
+                // ajuste do FB e chamada da rotação
+                if (*diminuiu)
+                {
+                    switch (raiz->fb)
+                    {
+                    case -1:
+                        raiz->fb = -2;
+                        return rotacao(raiz, diminuiu);
+                        break;
+                    case 0:
+                        raiz->fb = -1;
+                        *diminuiu = 0;
+                        break;
+                    case +1:
+                        raiz->fb = 0;
+                        *diminuiu = 1;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                raiz->esq = remover(raiz->esq, valor, diminuiu);
+                // ajuste do FB e chamada da rotação
+                if (*diminuiu)
+                {
+                    switch (raiz->fb)
+                    {
+                    case -1:
+                        raiz->fb = 0;
+                        *diminuiu = 1;
+                        break;
+                    case 0:
+                        raiz->fb = +1;
+                        *diminuiu = 0;
+                        break;
+                    case +1:
+                        raiz->fb = +2;
+                        return rotacao(raiz, diminuiu);
+                        break;
+                    }
+                }
+            }
+            return raiz;
         }
         return raiz;
     }
@@ -380,4 +400,21 @@ int maiorElemento(arvore raiz)
         return temp->valor;
     else
         return -1;
+}
+
+arvore limpar(arvore raiz)
+{
+    if (raiz != NULL)
+    {
+        // limpa esquerda
+        limpar(raiz->esq);
+
+        // limpa direita
+        limpar(raiz->dir);
+
+        // limpa raiz
+        free(raiz);
+    }
+
+    return NULL;
 }
