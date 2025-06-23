@@ -343,7 +343,7 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
            else
            {
                raiz->esq = remover(raiz->esq, valor, diminuiu);
-               // TODO: implementar o ajute de fb para esquerda
+               // ajuste do FB e chamada da rotação
                if (*diminuiu)
                {
                     switch (raiz->fb)
