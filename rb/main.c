@@ -1,0 +1,42 @@
+#include "rb.h"
+#include <stdio.h>
+
+int main(void)
+{
+
+	Arvore arvore = inicializar();
+
+	int funcao, valor_iterativo_1;
+
+	do
+	{
+		scanf("%d", &funcao);
+
+		switch (funcao)
+		{
+		case 1:
+			scanf("%d", &valor_iterativo_1);
+			inserir(valor_iterativo_1, &arvore);
+			break;
+
+		case 2:
+			pre_order(arvore);
+			printf("\n");
+			break;
+
+		case 3:
+			in_order(arvore);
+			printf("\n");
+			break;
+
+		case 4:
+			pos_order(arvore);
+			printf("\n");
+			break;
+
+		case 5:
+			arvore = limpar(arvore);
+			break;
+		}
+	} while (funcao != 99);
+}
