@@ -27,13 +27,13 @@ void inserir(int valorInserir, Arvore *raiz)
 	novo_no->pai = pai_novo_no;
 	novo_no->esquerda = NULL;
 	novo_no->direita = NULL;
-	novo_no->cor = VERMELHA; // por padrão
+	novo_no->cor = VERMELHO; // por padrão
 	novo_no->valor = valorInserir;
 
 	// eh a raiz
 	if (eh_raiz(novo_no))
 	{
-		novo_no->cor = PRETA; // exceção quando é raiz
+		novo_no->cor = PRETO; // exceção quando é raiz
 		*raiz = novo_no;
 		return;
 	}
@@ -51,23 +51,23 @@ void inserir(int valorInserir, Arvore *raiz)
 	verificar(novo_no);
 
 	// sempre pintar a raiz de preto
-	(*raiz)->cor = PRETA;
+	(*raiz)->cor = PRETO;
 }
 
 void verificar(Arvore filho)
 {
-	while (!eh_raiz(filho) && pai(filho)->cor == VERMELHA)
+	while (!eh_raiz(filho) && pai(filho)->cor == VERMELHO)
 	{
 		// caso 01 recolorir
 		if (tio(filho) != NULL)
 		{
-			if (tio(filho)->cor == VERMELHA)
+			if (tio(filho)->cor == VERMELHO)
 			{
 				// recolore;
-				tio(filho)->cor = PRETA;
-				pai(filho)->cor = PRETA;
+				tio(filho)->cor = PRETO;
+				pai(filho)->cor = PRETO;
 
-				avo(filho)->cor = VERMELHA;
+				avo(filho)->cor = VERMELHO;
 				filho = avo(filho);
 			}
 		}
@@ -122,13 +122,13 @@ void pre_order(Arvore raiz)
 	if (raiz != NULL)
 	{
 		char *nome_cor;
-		if (raiz->cor == PRETA)
+		if (raiz->cor == PRETO)
 		{
-			nome_cor = "PRETA";
+			nome_cor = "PRETO";
 		}
-		else if (raiz->cor == VERMELHA)
+		else if (raiz->cor == VERMELHO)
 		{
-			nome_cor = "VERMELHA";
+			nome_cor = "VERMELHO";
 		}
 		else
 		{

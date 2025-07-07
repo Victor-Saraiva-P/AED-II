@@ -5,8 +5,8 @@ typedef int T_elemento;
 
 enum Cor
 {
-  VERMELHA,
-  PRETA,
+  VERMELHO,
+  PRETO,
   DUPLO_PRETO
 };
 
