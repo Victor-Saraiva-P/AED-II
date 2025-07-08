@@ -30,14 +30,16 @@ void pos_order(Arvore raiz);
 Arvore limpar(Arvore raiz);
 
 // funções auxiliares
-void verificar(Arvore filho);
+void ajustar(Arvore elemento, Arvore *raiz);
 int eh_raiz(Arvore raiz);
 int eh_direito(Arvore filho);
 int eh_esquerdo(Arvore filho);
 
-void rotacao_simples_esquerda(Arvore pivo, int dupla);
-void rotacao_dupla_esquerda(Arvore pivo);
-void rotacao_simples_direita(Arvore pivo, int dupla);
+void rotacao_simples_esquerda(Arvore pivo, Arvore *raiz, int dupla);
+void rotacao_dupla_esquerda(Arvore pivo, Arvore *raiz);
+
+void rotacao_simples_direita(Arvore pivo, Arvore *raiz, int dupla);
+void rotacao_dupla_direita(Arvore pivo, Arvore *raiz);
 
 Arvore pai(Arvore filho);
 Arvore irmao(Arvore filho);
