@@ -120,16 +120,18 @@ void rotacao_simples_esquerda(Arvore pivo, Arvore *raiz, int dupla)
 
 	// subir u
 	if (!eh_raiz(pivo))
-	{	
-		if (dupla) (*raiz)->esquerda = u;
-		else (*raiz)->direita = u;
-		
+	{
+		if (dupla)
+			(*raiz)->esquerda = u;
+		else
+			(*raiz)->direita = u;
+
 		u->pai = *raiz;
 	}
-	else{
+	else
+	{
 		*raiz = u;
 	}
-
 
 	// pivo irá para esquerda do u
 	pivo->pai = u;
@@ -147,13 +149,16 @@ void rotacao_simples_direita(Arvore pivo, Arvore *raiz, int dupla)
 
 	// subir u
 	if (!eh_raiz(pivo))
-	{	
-		if (dupla) (*raiz)->direita = u;
-		else (*raiz)->esquerda = u;
-		
+	{
+		if (dupla)
+			(*raiz)->direita = u;
+		else
+			(*raiz)->esquerda = u;
+
 		u->pai = *raiz;
 	}
-	else{
+	else
+	{
 		*raiz = u;
 	}
 
@@ -178,7 +183,6 @@ void rotacao_dupla_direita(Arvore pivo, Arvore *raiz)
 	rotacao_simples_esquerda(pivo->esquerda, raiz, 1);
 	rotacao_simples_direita(pivo, raiz, 0);
 }
-
 
 Arvore pai(Arvore filho)
 {
