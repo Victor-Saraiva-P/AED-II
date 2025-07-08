@@ -5,18 +5,18 @@ typedef int T_elemento;
 
 enum Cor
 {
-  VERMELHO,
-  PRETO,
-  DUPLO_PRETO
+	VERMELHO,
+	PRETO,
+	DUPLO_PRETO
 };
 
 typedef struct No
 {
-  T_elemento valor;
-  enum Cor cor;
-  struct No *pai;
-  struct No *esquerda;
-  struct No *direita;
+	T_elemento valor;
+	enum Cor cor;
+	struct No *pai;
+	struct No *esquerda;
+	struct No *direita;
 
 } No;
 
@@ -33,6 +33,11 @@ Arvore limpar(Arvore raiz);
 void verificar(Arvore filho);
 int eh_raiz(Arvore raiz);
 int eh_direito(Arvore filho);
+int eh_esquerdo(Arvore filho);
+
+void rotacao_simples_esquerda(Arvore pivo, int dupla);
+void rotacao_dupla_esquerda(Arvore pivo);
+void rotacao_simples_direita(Arvore pivo, int dupla);
 
 Arvore pai(Arvore filho);
 Arvore irmao(Arvore filho);

@@ -48,9 +48,13 @@ void inserir(int valorInserir, Arvore *raiz)
 		pai_novo_no->direita = novo_no;
 	}
 
+	// pre_order(*raiz);
+	// printf(" ao lado esta o pre antes de verificar\n");
 	verificar(novo_no);
 
-	// sempre pintar a raiz de preto
+	// pre_order(*raiz);
+	// printf("\n\n");
+	//  sempre pintar a raiz de preto
 	(*raiz)->cor = PRETO;
 }
 
@@ -69,9 +73,104 @@ void verificar(Arvore filho)
 
 				avo(filho)->cor = VERMELHO;
 				filho = avo(filho);
+				continue;
 			}
 		}
+
+		// Define o pivo como o avo do filho
+		Arvore pivo = avo(filho);
+
+		// caso 2 rotação esquerda
+		if (eh_direito(pai(filho)))
+		{
+			// rotação simples esquerda
+			if (eh_direito(filho))
+			{
+				rotacao_simples_esquerda(pivo, 0);
+			}
+			else
+			{
+				// rotação dupla esquerda
+				rotacao_dupla_esquerda(pivo);
+				pre_order(pivo);
+				printf("\n\n");
+			}
+
+			// encerra a verificação
+			break;
+		}
+		// Caso 3 rotação direita
+		else
+		{
+			// rotação simples direita
+			if (eh_esquerdo(filho))
+			{
+				rotacao_simples_direita(pivo, 0);
+			}
+			else
+			{
+				// rotação dupla direita
+			}
+
+			// encerra a verificação
+			break;
+		}
 	}
+}
+
+void rotacao_simples_esquerda(Arvore pivo, int dupla)
+{
+
+	Arvore u = pivo->direita;
+	Arvore raiz = pai(pivo); // raiz da subarvore, da rotação
+
+	// subir u
+	if (!eh_raiz(pivo))
+	{	
+		if (dupla) raiz->esquerda = u;
+		else raiz->direita = u;
+	}
+
+	u->pai = raiz;
+
+	// pivo irá para esquerda do u
+	pivo->pai = u;
+	pivo->direita = NULL;
+	u->esquerda = pivo;
+
+	// recolorir
+	u->cor = PRETO;
+	pivo->cor = VERMELHO;
+}
+
+void rotacao_simples_direita(Arvore pivo, int dupla)
+{
+	Arvore u = pivo->esquerda;
+	Arvore raiz = pai(pivo); // raiz da subarvore, da rotação
+
+	// subir u
+	if (!eh_raiz(pivo))
+	{	
+		if (dupla) raiz->direita = u;
+		else raiz->esquerda = u;
+	}
+
+	u->pai = raiz;
+
+	// pivo irá para esquerda do u
+	pivo->pai = u;
+	pivo->esquerda = NULL;
+	u->direita = pivo;
+
+	// recolorir
+	u->cor = PRETO;
+	pivo->cor = VERMELHO;
+}
+
+void rotacao_dupla_esquerda(Arvore pivo)
+{
+	rotacao_simples_direita(pivo->direita, 1);
+	rotacao_simples_esquerda(pivo, 0);
 }
 
 Arvore pai(Arvore filho)
@@ -92,6 +191,16 @@ int eh_raiz(Arvore raiz)
 int eh_direito(Arvore filho)
 {
 	if (pai(filho)->valor < filho->valor)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+int eh_esquerdo(Arvore filho)
+{
+	if (filho->valor < pai(filho)->valor)
 	{
 		return 1;
 	}
