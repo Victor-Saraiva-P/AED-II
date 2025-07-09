@@ -46,4 +46,6 @@ Arvore irmao(Arvore filho);
 Arvore tio(Arvore filho);
 Arvore avo(Arvore filho);
 
+enum Cor cor(Arvore no);
+
 #endif

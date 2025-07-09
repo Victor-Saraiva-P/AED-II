@@ -56,18 +56,15 @@ void ajustar(Arvore elemento, Arvore *raiz)
 	while (!eh_raiz(elemento) && pai(elemento)->cor == VERMELHO)
 	{
 		// caso 01 recolorir
-		if (tio(elemento) != NULL)
+		if (cor(tio(elemento)) == VERMELHO)
 		{
-			if (tio(elemento)->cor == VERMELHO)
-			{
-				// recolore;
-				tio(elemento)->cor = PRETO;
-				pai(elemento)->cor = PRETO;
+			// recolore;
+			tio(elemento)->cor = PRETO;
+			pai(elemento)->cor = PRETO;
 
-				avo(elemento)->cor = VERMELHO;
-				elemento = avo(elemento);
-				continue;
-			}
+			avo(elemento)->cor = VERMELHO;
+			elemento = avo(elemento);
+			continue;
 		}
 
 		// Define o pivo como o avo do elemento
@@ -80,11 +77,19 @@ void ajustar(Arvore elemento, Arvore *raiz)
 			if (eh_direito(elemento))
 			{
 				rotacao_simples_esquerda(pivo, raiz, 0);
+				// recolorir
+				pivo->cor = PRETO;
+				pivo->pai->cor = PRETO;
+				pivo->pai->esquerda->cor = VERMELHO;
 			}
 			else
 			{
 				// rotação dupla esquerda
 				rotacao_dupla_esquerda(pivo, raiz);
+				// recolorir
+				pivo->cor = PRETO;
+				pivo->pai->cor = PRETO;
+				pivo->pai->esquerda->cor = VERMELHO;
 			}
 
 			// encerra a verificação
@@ -97,11 +102,21 @@ void ajustar(Arvore elemento, Arvore *raiz)
 			if (eh_esquerdo(elemento))
 			{
 				rotacao_simples_direita(pivo, raiz, 0);
+				// recolorir
+				pivo->cor = PRETO;
+				pivo->pai->cor = PRETO;
+				pivo->pai->esquerda->cor = VERMELHO;
+				
+
 			}
 			else
 			{
 				// rotação dupla direita
 				rotacao_dupla_direita(pivo, raiz);
+				// recolorir
+				pivo->cor = PRETO;
+				pivo->pai->cor = PRETO;
+				pivo->pai->esquerda->cor = VERMELHO;
 			}
 
 			// encerra a verificação
@@ -115,8 +130,9 @@ void ajustar(Arvore elemento, Arvore *raiz)
 
 void rotacao_simples_esquerda(Arvore pivo, Arvore *raiz, int dupla)
 {
-
-	Arvore u = pivo->direita;
+	Arvore u, t2;
+	u = pivo->direita;
+	t2 = u->esquerda;
 
 	// subir u
 	if (!eh_raiz(pivo))
@@ -135,12 +151,8 @@ void rotacao_simples_esquerda(Arvore pivo, Arvore *raiz, int dupla)
 
 	// pivo irá para esquerda do u
 	pivo->pai = u;
-	pivo->direita = NULL;
+	pivo->direita = t2;
 	u->esquerda = pivo;
-
-	// recolorir
-	u->cor = PRETO;
-	pivo->cor = VERMELHO;
 }
 
 void rotacao_simples_direita(Arvore pivo, Arvore *raiz, int dupla)
@@ -235,6 +247,14 @@ Arvore tio(Arvore filho)
 Arvore avo(Arvore filho)
 {
 	return pai(pai(filho));
+}
+
+enum Cor cor(Arvore no)
+{
+	if (no == NULL)
+		return PRETO; // por padrão, se for nulo, é preto
+
+	return no->cor;
 }
 
 void pre_order(Arvore raiz)
