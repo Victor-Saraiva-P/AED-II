@@ -5,14 +5,14 @@
 #include <stdio.h>
 
 // Implementação recursiva
-arvore inserir(arvore raiz, T_ELEM valor, int *cresceu)
+Arvore inserir(Arvore raiz, T_ELEM valor, int *cresceu)
 {
     // Caso base: instância mais simples do problema
     // Inserir em uma árvore vazia
     if (raiz == NULL)
     {
         // Alocar memória
-        arvore novo_no = (arvore)malloc(sizeof(no));
+        Arvore novo_no = (Arvore)malloc(sizeof(no));
         // Inicializar variáveis membro
         novo_no->valor = valor;
         novo_no->esq = NULL;
@@ -26,7 +26,7 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu)
     else
     {
         // Caso recursivo -> Um passo em direção ao caso base
-        // Decidir se vamos para sub-arvore esquerda ou direita
+        // Decidir se vamos para sub-Arvore esquerda ou direita
         if (valor > raiz->valor)
         {
             // chamada recursiva
@@ -78,12 +78,12 @@ arvore inserir(arvore raiz, T_ELEM valor, int *cresceu)
     }
 }
 
-arvore rotacao(arvore pivo, int *diminuiu)
+Arvore rotacao(Arvore pivo, int *diminuiu)
 {
     // rotação esquerda
     if (pivo->fb == 2)
     {
-        arvore u = pivo->dir;
+        Arvore u = pivo->dir;
 
         // rotação simples esquerda
         if (u->fb >= 0)
@@ -106,7 +106,7 @@ arvore rotacao(arvore pivo, int *diminuiu)
     // rotação direita
     else
     {
-        arvore u = pivo->esq;
+        Arvore u = pivo->esq;
 
         // rotação simples direita
         if (u->fb <= 0)
@@ -129,10 +129,10 @@ arvore rotacao(arvore pivo, int *diminuiu)
     return pivo;
 }
 
-arvore rotacao_simples_esquerda(arvore pivo)
+Arvore rotacao_simples_esquerda(Arvore pivo)
 {
     // Declarar e inicializar os ponteiros
-    arvore u, t2;
+    Arvore u, t2;
     u = pivo->dir;
     t2 = u->esq;
 
@@ -154,10 +154,10 @@ arvore rotacao_simples_esquerda(arvore pivo)
     return u;
 }
 
-arvore rotacao_simples_direita(arvore pivo)
+Arvore rotacao_simples_direita(Arvore pivo)
 {
     // Declarar e inicializar os ponteiros
-    arvore u, t2;
+    Arvore u, t2;
     u = pivo->esq;
     t2 = u->dir;
 
@@ -180,10 +180,10 @@ arvore rotacao_simples_direita(arvore pivo)
     return u;
 }
 
-arvore rotacao_dupla_direita(arvore pivo)
+Arvore rotacao_dupla_direita(Arvore pivo)
 {
     // Declarar e inicializar os ponteiros
-    arvore u, v, t2, t3;
+    Arvore u, v, t2, t3;
     u = pivo->esq;
     v = u->dir;
     t2 = v->esq;
@@ -217,10 +217,10 @@ arvore rotacao_dupla_direita(arvore pivo)
     return v;
 }
 
-arvore rotacao_dupla_esquerda(arvore pivo)
+Arvore rotacao_dupla_esquerda(Arvore pivo)
 {
     // Declarar e inicializar os ponteiros
-    arvore u, v, t2, t3;
+    Arvore u, v, t2, t3;
     u = pivo->dir;
     v = u->esq;
     t2 = v->esq;
@@ -254,7 +254,7 @@ arvore rotacao_dupla_esquerda(arvore pivo)
     return v;
 }
 
-void pre_order(arvore raiz)
+void pre_order(Arvore raiz)
 {
     if (raiz == NULL)
     {
@@ -274,7 +274,7 @@ int maximo(int a, int b)
     return (a > b) ? a : b;
 }
 
-arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
+Arvore remover(Arvore raiz, T_ELEM valor, int *diminuiu)
 {
     if (raiz == NULL)
     {
@@ -294,7 +294,7 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
             // caso 2a - Exatamente um filho esquerdo
             if (raiz->esq != NULL && raiz->dir == NULL)
             {
-                arvore filhoEsq = raiz->esq;
+                Arvore filhoEsq = raiz->esq;
                 free(raiz);
                 *diminuiu = 1;
                 return filhoEsq;
@@ -302,7 +302,7 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
             // caso 2b - Exatamente um filho direito
             if (raiz->esq == NULL && raiz->dir != NULL)
             {
-                arvore filhoDir = raiz->dir;
+                Arvore filhoDir = raiz->dir;
                 free(raiz);
                 *diminuiu = 1;
                 return filhoDir;
@@ -389,9 +389,9 @@ arvore remover(arvore raiz, T_ELEM valor, int *diminuiu)
     }
 }
 
-int maiorElemento(arvore raiz)
+int maiorElemento(Arvore raiz)
 {
-    arvore temp = raiz;
+    Arvore temp = raiz;
     while (temp->dir != NULL)
     {
         temp = temp->dir;
@@ -402,7 +402,7 @@ int maiorElemento(arvore raiz)
         return -1;
 }
 
-arvore limpar(arvore raiz)
+Arvore limpar(Arvore raiz)
 {
     if (raiz != NULL)
     {

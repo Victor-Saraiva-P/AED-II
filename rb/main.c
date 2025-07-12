@@ -4,7 +4,8 @@
 int main(void)
 {
 
-	Arvore arvore = inicializar();
+	Arvore arvore;
+	inicializar(&arvore);
 
 	int funcao, valor_iterativo_1;
 
@@ -16,7 +17,7 @@ int main(void)
 		{
 		case 1:
 			scanf("%d", &valor_iterativo_1);
-			inserir(valor_iterativo_1, &arvore);
+			adicionar(valor_iterativo_1, &arvore);
 			break;
 
 		case 2:
