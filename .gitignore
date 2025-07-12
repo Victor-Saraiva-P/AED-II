@@ -55,3 +55,4 @@ bst/main
 avl/main
 rb/main
 rb/Makefile
+rb/testes/saida.txt
