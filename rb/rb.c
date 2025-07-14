@@ -269,14 +269,17 @@ Arvore irmao(Arvore elemento)
 
 void imprimir(Arvore raiz)
 {
-	printf("(");
 	if (raiz != NULL)
-	{
-		imprimir_elemento(raiz);
-		imprimir(raiz->esq);
-		imprimir(raiz->dir);
-	}
-	printf(")");
+    {
+        imprimir_elemento(raiz);
+        printf(" "); // Adds space for better readability
+        
+        // percorre a esquerda
+        imprimir(raiz->esq);
+
+        // percorre a direita
+        imprimir(raiz->dir);
+    }
 }
 
 int altura(Arvore raiz)
@@ -365,18 +368,18 @@ void in_order(Arvore raiz)
 
 void imprimir_elemento(Arvore raiz)
 {
-	switch (raiz->cor)
-	{
-	case PRETO:
-		printf("\x1b[30m[%d]\x1b[0m", raiz->dado);
-		break;
-	case VERMELHO:
-		printf("\x1b[31m[%d]\x1b[0m", raiz->dado);
-		break;
-	case DUPLO_PRETO:
-		printf("\x1b[32m[%d]\x1b[0m", raiz->dado);
-		break;
-	}
+    switch (raiz->cor)
+    {
+    case PRETO:
+        printf("\x1b[37m[%d]\x1b[0m", raiz->dado);  // White text for black nodes
+        break;
+    case VERMELHO:
+        printf("\x1b[31m[%d]\x1b[0m", raiz->dado);  // Red text
+        break;
+    case DUPLO_PRETO:
+        printf("\x1b[32m[%d]\x1b[0m", raiz->dado);  // Green text
+        break;
+    }
 }
 
 void remover(int valor, Arvore *raiz)

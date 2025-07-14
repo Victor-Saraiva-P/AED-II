@@ -38,6 +38,13 @@ int main(void)
 		case 5:
 			arvore = limpar(arvore);
 			break;
+		
+		case 6:
+			remover(valor_iterativo_1, &arvore);
+			break;
+			
+		case 7:
+			imprimir(arvore);
 		}
 	} while (funcao != 99);
 }
