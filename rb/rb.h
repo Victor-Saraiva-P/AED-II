@@ -21,6 +21,7 @@ typedef No_rb *Arvore;
 
 void inicializar(Arvore *raiz);
 void adicionar(int valor, Arvore *raiz);
+void inserir_sem_regra(int valor1, int valor2, Arvore *raiz);
 void remover(int valor, Arvore *raiz);
 
 int altura(Arvore raiz);
