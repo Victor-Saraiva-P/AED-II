@@ -1,21 +1,27 @@
 #ifndef RB_H
 #define RB_H
 
-enum Cor { VERMELHO, PRETO, DUPLO_PRETO };
+enum Cor
+{
+	VERMELHO,
+	PRETO,
+	DUPLO_PRETO
+};
 
 typedef int tipo_dado;
 
-typedef struct No_rb {
+typedef struct No_rb
+{
 	tipo_dado dado;
 	enum Cor cor;
 	struct No_rb *esq, *dir, *pai;
 } No_rb;
 
-typedef No_rb * Arvore;
+typedef No_rb *Arvore;
 
 void inicializar(Arvore *raiz);
-void adicionar (int valor, Arvore *raiz);
-void remover (int valor, Arvore *raiz);
+void adicionar(int valor, Arvore *raiz);
+void remover(int valor, Arvore *raiz);
 
 int altura(Arvore raiz);
 int maior(int a, int b);

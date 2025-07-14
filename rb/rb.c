@@ -218,7 +218,8 @@ void rotacao_dupla_direita(Arvore *raiz, Arvore pivo)
 	rotacao_simples_direita(raiz, pivo);
 }
 
-void rotacao_dupla_esquerda(Arvore *raiz, Arvore pivo){
+void rotacao_dupla_esquerda(Arvore *raiz, Arvore pivo)
+{
 	Arvore u = pivo->dir;
 	rotacao_simples_direita(raiz, u);
 	rotacao_simples_esquerda(raiz, pivo);
