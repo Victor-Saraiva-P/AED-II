@@ -76,8 +76,10 @@ void adicionar(int valor, Arvore *raiz)
 		pai = posicao;
 		if (valor > posicao->dado)
 			posicao = posicao->dir;
-		else
+		else if (valor < posicao->dado)
 			posicao = posicao->esq;
+		else
+			return;
 	}
 
 	// Após achar a posição, inicializa o novo elemento
@@ -564,7 +566,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 	// caso 1
 	if (eh_raiz(elemento))
 	{
-		printf("caso 1\n");
 		elemento->cor = PRETO;
 		// Falta eliminar o nó duplo preto
 		if (elemento == no_null)
@@ -579,7 +580,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 		cor(irmao(elemento)->esq) == PRETO)
 	{
 		// Verifica se é o caso 2 esquerdo ou direito
-		printf("caso 2\n");
 		if (eh_filho_esquerdo(elemento))
 			rotacao_simples_esquerda(raiz, elemento->pai);
 		else
@@ -601,8 +601,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 	{
 		// Verificar e remover o no_null
 		// Chamada recursiva para eliminar o duplo preto do elemento P
-		printf("caso 3\n");
-
 		pai(elemento)->cor = DUPLO_PRETO;
 		irmao(elemento)->cor = VERMELHO;
 
@@ -619,7 +617,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 		cor(sobrinho_direito(elemento)) == PRETO)
 	{
 		// Verificar e remover o no_null
-		printf("caso 4\n");
 		pai(elemento)->cor = PRETO;
 		irmao(elemento)->cor = VERMELHO;
 
@@ -634,7 +631,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 		cor(sobrinho_esquerdo(elemento)) == VERMELHO &&
 		cor(sobrinho_direito(elemento)) == PRETO)
 	{
-		printf("caso 5a\n");
 		irmao(elemento)->cor = VERMELHO;
 		sobrinho_esquerdo(elemento)->cor = PRETO;
 		rotacao_simples_direita(raiz, irmao(elemento));
@@ -649,7 +645,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 		cor(sobrinho_esquerdo(elemento)) == PRETO &&
 		cor(sobrinho_direito(elemento)) == VERMELHO)
 	{
-		printf("caso 5b\n");
 		irmao(elemento)->cor = VERMELHO;
 		sobrinho_direito(elemento)->cor = PRETO;
 		rotacao_simples_esquerda(raiz, irmao(elemento));
@@ -663,7 +658,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 		cor(irmao(elemento)) == PRETO &&
 		cor(sobrinho_direito(elemento)) == VERMELHO)
 	{
-		printf("caso 6a\n");
 		irmao(elemento)->cor = cor(pai(elemento));
 		pai(elemento)->cor = PRETO;
 		sobrinho_direito(elemento)->cor = PRETO;
@@ -680,7 +674,6 @@ void reajustar(Arvore *raiz, Arvore elemento)
 		cor(sobrinho_esquerdo(elemento)) == VERMELHO)
 	{
 
-		printf("caso 6b\n");
 		irmao(elemento)->cor = cor(pai(elemento));
 		pai(elemento)->cor = PRETO;
 		sobrinho_esquerdo(elemento)->cor = PRETO;

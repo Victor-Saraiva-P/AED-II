@@ -1,5 +1,7 @@
 #include "rb.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main(void)
 {
@@ -7,7 +9,9 @@ int main(void)
 	Arvore arvore;
 	inicializar(&arvore);
 
-	int funcao, valor_iterativo_1, valor_iterativo_2;
+	int funcao, valor_iterativo_1, valor_iterativo_2, quantidade;
+
+	srand(time(NULL));
 
 	do
 	{
@@ -54,6 +58,24 @@ int main(void)
 			scanf("%d", &valor_iterativo_2);
 			inserir_sem_regra(valor_iterativo_1, valor_iterativo_2, &arvore);
 			break;
+
+		case 9:
+            scanf("%d", &quantidade);
+
+            for (int i = 0; i < quantidade; i++) {
+                valor_iterativo_1 = rand() % 10000;
+                adicionar(valor_iterativo_1, &arvore);
+            }
+            break;
+
+		case 10:
+            scanf("%d", &quantidade);
+
+            for (int i = 0; i < quantidade; i++) {
+                valor_iterativo_1 = rand() % 10000;
+                remover(valor_iterativo_1, &arvore);
+            }
+            break;
 		}
 	} while (funcao != 99);
 }
