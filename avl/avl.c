@@ -51,7 +51,7 @@ Arvore inserir(Arvore raiz, T_ELEM valor, int *cresceu)
                 }
             }
         }
-        else
+        else if (valor < raiz->valor)
         {
             raiz->esq = inserir(raiz->esq, valor, cresceu);
             // Atualizar FB
