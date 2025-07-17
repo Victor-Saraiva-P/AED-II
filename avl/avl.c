@@ -12,7 +12,7 @@ Arvore inserir(Arvore raiz, T_ELEM valor, int *cresceu)
     if (raiz == NULL)
     {
         // Alocar memória
-        Arvore novo_no = (Arvore)malloc(sizeof(no));
+        Arvore novo_no = (Arvore)malloc(sizeof(No_alv));
         // Inicializar variáveis membro
         novo_no->valor = valor;
         novo_no->esq = NULL;

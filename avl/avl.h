@@ -4,29 +4,29 @@
 
 typedef int T_ELEM;
 
-typedef struct no
+typedef struct No_alv
 {
     T_ELEM valor;
     int fb;
-    struct no *esq, *dir;
-} no;
+    struct No_alv *esq, *dir;
+} No_alv;
 
-typedef struct no *arvore;
+typedef struct No_alv *Arvore;
 
-arvore inserir(arvore raiz, T_ELEM valor, int *cresceu);
-arvore remover(arvore raiz, T_ELEM valor, int *diminuiu);
-int maiorElemento(arvore raiz);
+Arvore inserir(Arvore raiz, T_ELEM valor, int *cresceu);
+Arvore remover(Arvore raiz, T_ELEM valor, int *diminuiu);
+int maiorElemento(Arvore raiz);
 
-void pre_order(arvore raiz);
+void pre_order(Arvore raiz);
 int maximo(int a, int b);
-int altura(arvore raiz);
-arvore rotacao(arvore pivo, int *diminuiu);
-arvore rotacao_simples_esquerda(arvore pivo);
-arvore rotacao_simples_direita(arvore pivo);
-arvore rotacao_dupla_direita(arvore pivo);
-arvore rotacao_dupla_esquerda(arvore pivo);
+int altura(Arvore raiz);
+Arvore rotacao(Arvore pivo, int *diminuiu);
+Arvore rotacao_simples_esquerda(Arvore pivo);
+Arvore rotacao_simples_direita(Arvore pivo);
+Arvore rotacao_dupla_direita(Arvore pivo);
+Arvore rotacao_dupla_esquerda(Arvore pivo);
 
-arvore limpar(arvore raiz);
+Arvore limpar(Arvore raiz);
 
 
 #endif

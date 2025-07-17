@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    arvore a1 = NULL;
+    Arvore a1 = NULL;
     int opcao, valor, cresceu, diminuiu;
 
     while (1)
