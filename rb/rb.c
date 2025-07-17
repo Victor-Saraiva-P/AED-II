@@ -460,8 +460,12 @@ void remover(int valor, Arvore *raiz)
 			// elemento possui dois filhos
 			if (posicao->esq != NULL && posicao->dir != NULL)
 			{
-				posicao->dado = maior_elemento(posicao->esq);
-				remover(posicao->dado, &(posicao->esq));
+				// Guarde o valor a ser removido
+				int valor_substituto = maior_elemento(posicao->esq);
+				// Copie o valor para o nó atual
+				posicao->dado = valor_substituto;
+				// Remova o nó com o valor substituto da subárvore esquerda
+				remover(valor_substituto, &(posicao->esq));
 				break;
 			}
 
@@ -704,15 +708,97 @@ Arvore limpar(Arvore raiz)
 {
 	if (raiz != NULL)
 	{
-		// limpa esquerda
-		limpar(raiz->esq);
+		// Limpa a subárvore esquerda
+		raiz->esq = limpar(raiz->esq);
 
-		// limpa direita
-		limpar(raiz->dir);
+		// Limpa a subárvore direita
+		raiz->dir = limpar(raiz->dir);
 
-		// limpa raiz
+		// Limpa a raiz
 		free(raiz);
 	}
-
 	return NULL;
+}
+
+int verificar_altura_negra(Arvore raiz)
+{
+	int altura = 0;
+	return verificar_altura_negra_rec(raiz, &altura) >= 0;
+}
+
+int verificar_altura_negra_rec(Arvore raiz, int *altura)
+{
+	if (raiz == NULL)
+	{
+		*altura = 0; // Folha nula tem altura 0
+		return 0;
+	}
+
+	int altura_esq = 0;
+	int altura_dir = 0;
+
+	int res_esq = verificar_altura_negra_rec(raiz->esq, &altura_esq);
+	int res_dir = verificar_altura_negra_rec(raiz->dir, &altura_dir);
+
+	// Se alguma subárvore já é inválida, propaga o erro
+	if (res_esq == -1 || res_dir == -1 || altura_esq != altura_dir)
+	{
+		return -1;
+	}
+
+	// Calcula altura negra deste nó (altura da subárvore + 1 se for preto)
+	*altura = altura_esq + (cor(raiz) == PRETO ? 1 : 0);
+
+	return *altura;
+}
+
+int verificar_vermelhos_consecutivos(Arvore raiz)
+{
+	if (raiz == NULL)
+		return 1;
+
+	// Verifica se este nó é vermelho e tem filho vermelho
+	if (cor(raiz) == VERMELHO)
+	{
+		if ((raiz->esq != NULL && cor(raiz->esq) == VERMELHO) ||
+			(raiz->dir != NULL && cor(raiz->dir) == VERMELHO))
+		{
+			return 0;
+		}
+	}
+
+	// Verifica recursivamente
+	return verificar_vermelhos_consecutivos(raiz->esq) &&
+		   verificar_vermelhos_consecutivos(raiz->dir);
+}
+
+void verificar_arvore_rb(Arvore raiz)
+{
+	int altura_valida = verificar_altura_negra(raiz);
+	int vermelhos_validos = verificar_vermelhos_consecutivos(raiz);
+
+	if (altura_valida && vermelhos_validos)
+	{
+		printf("Árvore RB válida: todas as propriedades verificadas com sucesso.\n");
+	}
+	else
+	{
+		if (!altura_valida)
+		{
+			printf("VIOLAÇÃO: Altura negra inconsistente em diferentes caminhos.\n");
+		}
+		if (!vermelhos_validos)
+		{
+			printf("VIOLAÇÃO: Nós vermelhos consecutivos encontrados.\n");
+		}
+	}
+}
+
+void finalizar(void)
+{
+	if (no_null != NULL)
+	{
+		free(no_null);
+		no_null = NULL;
+	}
 }
