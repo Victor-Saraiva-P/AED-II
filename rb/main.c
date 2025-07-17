@@ -63,7 +63,7 @@ int main(void)
             scanf("%d", &quantidade);
 
             for (int i = 0; i < quantidade; i++) {
-                valor_iterativo_1 = rand() % 10000;
+                valor_iterativo_1 = rand() % 1000000;
                 adicionar(valor_iterativo_1, &arvore);
             }
             break;
@@ -72,7 +72,7 @@ int main(void)
             scanf("%d", &quantidade);
 
             for (int i = 0; i < quantidade; i++) {
-                valor_iterativo_1 = rand() % 10000;
+                valor_iterativo_1 = rand() % 1000000;
                 remover(valor_iterativo_1, &arvore);
             }
             break;

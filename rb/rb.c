@@ -523,6 +523,7 @@ void remover(int valor, Arvore *raiz)
 				if (eh_raiz(posicao))
 				{
 					*raiz = NULL;
+					free(posicao);
 					break;
 				}
 
@@ -535,6 +536,8 @@ void remover(int valor, Arvore *raiz)
 						posicao->pai->esq = NULL;
 					else
 						posicao->pai->dir = NULL;
+
+					free(posicao);
 					break;
 				}
 				else
@@ -546,6 +549,7 @@ void remover(int valor, Arvore *raiz)
 					else
 						posicao->pai->dir = no_null;
 
+					free(posicao);
 					reajustar(raiz, no_null);
 					break;
 				}
