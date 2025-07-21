@@ -53,11 +53,4 @@ void retira_duplo_preto(Arvore *raiz, Arvore elemento);
 
 Arvore limpar(Arvore raiz);
 
-int verificar_altura_negra(Arvore raiz);
-int verificar_altura_negra_rec(Arvore raiz, int *altura);
-int verificar_vermelhos_consecutivos(Arvore raiz);
-void verificar_arvore_rb(Arvore raiz);
-
-void finalizar(void);
-
 #endif
