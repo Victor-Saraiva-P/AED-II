@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
     Arvore a1 = NULL;
-    int opcao, valor, cresceu = 0, diminuiu = 0;  // Initialize variables
+    int opcao, valor, cresceu = 0, diminuiu = 0; // Initialize variables
 
     srand(time(NULL));
 
@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
             diminuiu = 0;
             a1 = remover(a1, valor, &diminuiu);
             break;
-
 
         case 99:
             a1 = limpar(a1);

@@ -28,5 +28,4 @@ Arvore rotacao_dupla_esquerda(Arvore pivo);
 
 Arvore limpar(Arvore raiz);
 
-
 #endif

@@ -3,13 +3,14 @@
 
 typedef int T_elemento;
 
-typedef struct No {
+typedef struct No
+{
   T_elemento valor;
   struct No *esquerda;
   struct No *direita;
 } No;
 
-typedef No* Arvore;
+typedef No *Arvore;
 
 Arvore inicializar(void);
 Arvore inserir(int valorInserir, Arvore raiz);
