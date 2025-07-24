@@ -389,20 +389,7 @@ void pre_order(Arvore raiz)
 {
 	if (raiz != NULL)
 	{
-		char *nome_cor;
-		if (raiz->cor == PRETO)
-		{
-			nome_cor = "PRETO";
-		}
-		else if (raiz->cor == VERMELHO)
-		{
-			nome_cor = "VERMELHO";
-		}
-		else
-		{
-			nome_cor = "DUPLO_PRETO";
-		}
-		printf("[%d | %s]", raiz->dado, nome_cor);
+		imprimir_elemento(raiz);
 
 		// percorre a esquerda
 		pre_order(raiz->esq);
@@ -437,13 +424,13 @@ void imprimir_elemento(Arvore raiz)
 	switch (raiz->cor)
 	{
 	case PRETO:
-		printf("\x1b[37m[%d]\x1b[0m", raiz->dado); // White text for black nodes
+		printf("[%d B]", raiz->dado); // White text for black nodes
 		break;
 	case VERMELHO:
-		printf("\x1b[31m[%d]\x1b[0m", raiz->dado); // Red text
+		printf("[%d R]", raiz->dado); // Red text
 		break;
 	case DUPLO_PRETO:
-		printf("\x1b[32m[%d]\x1b[0m", raiz->dado); // Green text
+		printf("[%d DP]", raiz->dado); // Green text
 		break;
 	}
 }
