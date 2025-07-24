@@ -262,7 +262,7 @@ void pre_order(Arvore raiz)
     }
     else
     {
-        printf("[%d | %d]", raiz->valor, raiz->fb);
+        printf("[%d %d]", raiz->valor, raiz->fb);
         pre_order(raiz->esq);
         pre_order(raiz->dir);
     }

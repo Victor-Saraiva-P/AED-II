@@ -1,16 +1,13 @@
 // main
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "avl.h"
 
 int main(int argc, char *argv[])
 {
     Arvore a1 = NULL;
-    int opcao, valor, cresceu = 0, diminuiu = 0; // Initialize variables
-
-    srand(time(NULL));
+    int opcao, valor, cresceu = 0, diminuiu = 0;
 
     while (1)
     {
